@@ -42,22 +42,24 @@ func main() {
 	srv, err := machineryServer()
 	chk("Initializing server", err)
 
-	log.Println("All wamrmed up now")
+	log.Println("All warmed up now")
 
 	// Runs every second
 	count := 1
 	c.AddFunc("*/1 * * * * *", func() {
+		msg := fmt.Sprintf("Message: %d", count)
 		// create task signature
 		sig, err := tasks.NewSignature(
 			"echo",
 			[]tasks.Arg{
-				{Type: "string", Value: fmt.Sprintf("Message: %d", count)},
+				{Type: "string", Value: msg},
 			})
 		chk("Create signature", err)
 		count++
 
 		// send the task
 		_, err = srv.SendTask(sig)
+		log.Printf("Send msg: %s", msg)
 		chk("Send task", err)
 	})
 
