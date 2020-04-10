@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  rabbit:
+    image: rabbitmq:3.7.16-alpine
+    environment:
+      RABBITMQ_NODENAME: rabbit
+
+  worker1: &worker
+    image: localhost:5000/machines
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - BASE_IMG=localhost:5000/machines
+    environment:
+      BROKER: amqp://guest:guest@rabbit:5672/
+    command:
+      - run
+      - worker.go
+      - worker1
+    depends_on:
+      - rabbit
+
+  worker2:
+    <<: *worker
+    command:
+      - run
+      - worker.go
+      - worker2
+
+  beat:
+    <<: *worker
+    command:
+      - run
+      - beat.go
