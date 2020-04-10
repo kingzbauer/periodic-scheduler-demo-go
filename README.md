@@ -10,6 +10,7 @@
 ### How to run
 
 `docker-compose up -d --build`
+__you may want to delete the `build>args` mapping in service worker1 for the first build__
 
 The docker-compose.yml file contains 4 services
 - rabbit => rabbitmq service
