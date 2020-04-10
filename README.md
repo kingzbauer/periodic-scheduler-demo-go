@@ -3,9 +3,9 @@
 ## A lightweight attempt to mimic celery beat
 
 ### Requirements
-> github.com/RichardKnop/machinery/v1
-> github.com/robfig/cron/v3
-> docker
+> - github.com/RichardKnop/machinery/v1
+> - github.com/robfig/cron/v3
+> - docker
 
 ### How to run
 
